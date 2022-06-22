@@ -25,19 +25,24 @@ function singleRound(playerSelection, computerSelection) {
     } else if (playerSelection === computerSelection) {
         console.log(`playerSelection: ${playerSelection}, computerSelection: ${computerSelection}`)
         console.log("no winner, it's the same")
+        console.log(`playerScore: ${playerScore}, computerScore: ${computerScore}`)
     } else if (playerSelection === "ROCK" && computerSelection === "SCISSORS" || playerSelection === "PAPER" && computerSelection === "ROCK" || playerSelection === "SCISSORS" && computerSelection === "PAPER") {
         console.log(`playerSelection: ${playerSelection}, computerSelection: ${computerSelection}`)
         console.log("hey, you've won!! congrats!!")
         playerScore++
         roundCounter++
+        console.log(`playerScore: ${playerScore}, computerScore: ${computerScore}`)
     } else if (playerSelection === "SCISSORS" && computerSelection === "ROCK" || playerSelection === "ROCK" && computerSelection === "PAPER" || playerSelection === "PAPER" && computerSelection === "SCISSORS") {
         console.log(`playerSelection: ${playerSelection}, computerSelection: ${computerSelection}`)
         console.log("shit! the computer has won. unlucky :[")
         computerScore++
         roundCounter++
+        console.log(`playerScore: ${playerScore}, computerScore: ${computerScore}`)
     }
 
 }
+
+//you've not added an algorithm in which when your score is 3, you beat the computer and vice versa
 
 function game() {
     // for (i = 0; i < 10; i++) {
