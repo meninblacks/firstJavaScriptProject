@@ -15,6 +15,10 @@ function yourTurn() {
     }
 }
 
+let playerScore = 0
+let computerScore = 0
+let roundCounter = 0
+
 function singleRound(playerSelection, computerSelection) {
     if (playerSelection == undefined) {
         console.log("wrongg!! you've typed in something wrong.")
@@ -24,13 +28,43 @@ function singleRound(playerSelection, computerSelection) {
     } else if (playerSelection === "ROCK" && computerSelection === "SCISSORS" || playerSelection === "PAPER" && computerSelection === "ROCK" || playerSelection === "SCISSORS" && computerSelection === "PAPER") {
         console.log(`playerSelection: ${playerSelection}, computerSelection: ${computerSelection}`)
         console.log("hey, you've won!! congrats!!")
+        playerScore++
+        roundCounter++
     } else if (playerSelection === "SCISSORS" && computerSelection === "ROCK" || playerSelection === "ROCK" && computerSelection === "PAPER" || playerSelection === "PAPER" && computerSelection === "SCISSORS") {
         console.log(`playerSelection: ${playerSelection}, computerSelection: ${computerSelection}`)
         console.log("shit! the computer has won. unlucky :[")
+        computerScore++
+        roundCounter++
     }
 
 }
 
-singleRound(yourTurn(), computerPlay())
+function game() {
+    // for (i = 0; i < 10; i++) {
+    //     singleRound(yourTurn(), computerPlay())
+    //     if (roundCounter === 5) {
+    //         console.log(`playerScore: ${playerScore}, computerScore: ${computerScore}`)
+    //         if (playerScore > computerScore) {
+    //             console.log("YES! YOU'VE WON THE WHOLE FUCKIN' GAME :D")
+    //         } else if (computerScore > playerScore) {
+    //             console.log("YOU'RE COMPLETELY DEFEATED")
+    //         }
+    //     }
+    // }
+
+    while (roundCounter < 5) {
+        singleRound(yourTurn(), computerPlay())
+    }
+    if (roundCounter === 5) {
+        console.log(`playerScore: ${playerScore}, computerScore: ${computerScore}`)
+        if (playerScore > computerScore) {
+            console.log("YES! YOU'VE WON THE WHOLE FUCKIN' GAME :D")
+        } else if (computerScore > playerScore) {
+            console.log("YOU'RE COMPLETELY DEFEATED")
+        }
+    }
+}
+
+game()
 
 
