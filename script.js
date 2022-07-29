@@ -9,77 +9,87 @@ let playerScore = 0
 let computerScore = 0
 let roundCounter = 0
 
-let currentWinner = '';
+const situation = document.querySelector(".situation")
+const yourScore = document.querySelector(".yours")
+const pcScore = document.querySelector(".computer")
 
-const choices = document.querySelector(".choices")
-const scores = document.querySelector(".scores")
-const winner = document.querySelector(".winner")
 
 function singleRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
-        currentWinner = "no winner, it's the same"
-        choices.textContent = `${currentWinner} - your choice: ${playerSelection}, computer's choice: ${computerSelection}`
         roundCounter++
-
-        scores.textContent = `your score: ${playerScore}, computer's score: ${computerScore}`
-        
+        situation.textContent = "No winners, your choices are same."   
     } else if (playerSelection === "ROCK" && computerSelection === "SCISSORS" || playerSelection === "PAPER" && computerSelection === "ROCK" || playerSelection === "SCISSORS" && computerSelection === "PAPER") {
-        currentWinner = "hey, you've won!! congrats!!" 
         playerScore++
         roundCounter++
-        scores.textContent = `your score: ${playerScore}, computer's score: ${computerScore}`
-        if (playerScore === 5) {
-            winner.textContent = "YOU'VE WON THE WHOLE GAME!!!"
-            return
-        }
 
-        choices.textContent = `${currentWinner} - your choice: ${playerSelection}, computer's choice: ${computerSelection}`
-        
+        yourScore.textContent = `Your score : ${playerScore}`
+        situation.textContent = `You won this round. Computer's selection : ${computerSelection}` 
+
+
+        if (playerScore === 5) {
+            situation.textContent = `You have reached 5, so you're the winner of the game. Computer's selection : ${computerSelection}`
+            restart();
+        } 
+
     } else if (playerSelection === "SCISSORS" && computerSelection === "ROCK" || playerSelection === "ROCK" && computerSelection === "PAPER" || playerSelection === "PAPER" && computerSelection === "SCISSORS") {
-        currentWinner = "shit! the computer has won. unlucky :["
         computerScore++
         roundCounter++
-        scores.textContent = `your score: ${playerScore}, computer's score: ${computerScore}`
 
-        if (computerScore === 5) {
-            winner.textContent = "YOU'VE lost :("
-            return
+        pcScore.textContent = `Computer's score : ${computerScore}`
+        situation.textContent = `Computer won this round. Computer's selection : ${computerSelection}`
+
+
+        if (computerScore == 5) {
+            situation.textContent = `Computer has reached 5, so it's the winner of the game. Computer's selection : ${computerSelection}`
+            restart();
+            // rock.removeEventListener("click", getButtonText)
+            // paper.removeEventListener("click", getButtonText)
+            // scissors.removeEventListener("click", getButtonText)
         }
 
-        choices.textContent = `${currentWinner} - your choice: ${playerSelection}, computer's choice: ${computerSelection}`
-        
     }
 }
 
-function getButtonText ()  {
-    singleRound(this.textContent.toUpperCase(), computerPlay())
+const restartBtn = document.createElement("button")
+
+function restart() {
+    situation.appendChild(restartBtn)
+    restartBtn.textContent = "Restart the game"
+    restartBtn.classList.add("restartBtn")
+
+    rock.addEventListener("click", getButtonText)
+    paper.addEventListener("click", getButtonText)
+    scissors.addEventListener("click", getButtonText)
+
 }
 
+restartBtn.addEventListener("click", reset)
 
-const buttons = document.querySelectorAll("button")
-buttons.forEach(button => button.addEventListener("click", getButtonText))
+function reset() {
+    playerScore = 0;
+    computerScore = 0;
+    yourScore.textContent = `Your score : ${playerScore}`
+    pcScore.textContent = `Computer's score : ${computerScore}`
+    situation.textContent = "Welcome to the game!";
+}
 
+function getButtonText ()  {
+    if (this.className === "rock") {
+        singleRound(this.className.toUpperCase(), computerPlay())   
+    } else if (this.className === "paper") {
+        singleRound(this.className.toUpperCase(), computerPlay())   
+    } else if (this.className === "scissors") {
+        singleRound(this.className.toUpperCase(), computerPlay())   
+    } 
 
+}
 
+const rock = document.querySelector(".rock")
+const paper = document.querySelector(".paper")
+const scissors = document.querySelector(".scissors")
 
-//you've not added an algorithm in which when your score is 3, you beat the computer and vice versa
+rock.addEventListener("click", getButtonText)
+paper.addEventListener("click", getButtonText)
+scissors.addEventListener("click", getButtonText)
 
-// function game() {
-
-//     while (roundCounter < 5) {
-//         singleRound(yourTurn(), computerPlay())
-//     }
-//     if (roundCounter === 5) {
-//         console.log(`playerScore: ${playerScore}, computerScore: ${computerScore}`)
-//         if (playerScore > computerScore) {
-//             console.log("YES! YOU'VE WON THE WHOLE FUCKIN' GAME :D")
-//         } else if (computerScore > playerScore) {
-//             console.log("YOU'RE COMPLETELY DEFEATED")
-//         }
-//     } 
-// }
-
-// game()
-
-// singleRound(yourTurn(), computerPlay())
 
